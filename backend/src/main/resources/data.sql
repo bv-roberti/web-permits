@@ -1,0 +1,1 @@
+INSERT INTO tb_company (name, cnpj, created_At) VALUES ('Vale', '13.333.335/0001-02', NOW());
