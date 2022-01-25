@@ -8,5 +8,6 @@ import web.portal.permits.entities.Company;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
-  Optional<Company> findByName(String deletedPetrobras);
+  Optional<Company> findByName(String Name);
+  Optional<Company> findByCnpj(String Cnpj);
 }
