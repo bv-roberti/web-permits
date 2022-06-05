@@ -11,7 +11,8 @@ import web.portal.permits.entities.Company;
 @DataJpaTest
 public class CompanyRepositoryIT {
 
-  @Autowired CompanyRepository repository;
+  @Autowired
+  CompanyRepository repository;
   Long existingId = 1L;
 
   @BeforeAll

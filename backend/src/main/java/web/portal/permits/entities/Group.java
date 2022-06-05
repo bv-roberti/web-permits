@@ -1,3 +1,13 @@
 package web.portal.permits.entities;
 
-public class Group {}
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tb_group")
+public class Group {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+}
