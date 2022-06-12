@@ -1,0 +1,24 @@
+CREATE TABLE tb_company (
+  ID serial PRIMARY KEY,
+  NAME Varchar(50),
+  CNPJ Varchar(20),
+  ACTIVE bool,
+  CREATED_AT TIMESTAMP
+);
+
+CREATE TABLE tb_uf (
+    ID serial PRIMARY KEY,
+    NAME Varchar(50),
+    SHORT_NAME Varchar(50)
+);
+
+
+CREATE TABLE tb_user (
+    ID serial PRIMARY KEY,
+    NAME Varchar(50),
+    EMAIL Varchar(50),
+    PASSWORD Varchar(100),
+    ACTIVE bool,
+    CREATED_AT TIMESTAMP,
+    UPDATED_AT TIMESTAMP
+);

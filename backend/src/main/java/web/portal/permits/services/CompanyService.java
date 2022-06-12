@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.portal.permits.entities.Company;
+import web.portal.permits.entities.UF;
 import web.portal.permits.errors.ResourceNotFoundProblem;
 import web.portal.permits.repository.CompanyRepository;
 import java.util.List;
@@ -18,6 +20,10 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private UfService ufService;
+
+    @Transactional(readOnly = true)
     public List<Company> findAll(){
         return companyRepository.findAll();
     }
@@ -28,6 +34,9 @@ public class CompanyService {
     }
 
     public Company save(Company company){
+
+        UF uf = ufService.findById(company.getUf().getId());
+        company.setUf(uf);
         return companyRepository.save(company);
     }
 

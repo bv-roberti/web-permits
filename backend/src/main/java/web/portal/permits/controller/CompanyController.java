@@ -13,7 +13,7 @@ import web.portal.permits.entities.Company;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "api/companies")
+@RequestMapping(value = "api/company")
 public class CompanyController {
 
   @Autowired private CompanyService companyService;
@@ -46,6 +46,4 @@ public class CompanyController {
     companyService.delete(id);
     return ResponseEntity.noContent().build();
   }
-
-
 }
