@@ -45,4 +45,11 @@ public class UserController {
     userService.delete(id);
     return ResponseEntity.noContent().build();
   }
+
+  @PostMapping(value = "notify")
+  public ResponseEntity<Void> notification() {
+    userService.notification();
+
+    return ResponseEntity.noContent().build();
+  }
 }

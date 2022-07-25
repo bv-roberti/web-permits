@@ -7,11 +7,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import web.portal.permits.entities.Permit;
 import web.portal.permits.entities.User;
 import web.portal.permits.errors.ResourceNotFoundProblem;
+import web.portal.permits.infra.Notification.NotificationContract;
+import web.portal.permits.infra.mail.EmailServiceInterface;
 import web.portal.permits.repository.UserRepository;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -20,6 +27,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationContract notificationService;
 
     public List<User> findAll(){
         return userRepository.findAll();
@@ -45,7 +55,6 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean delete(Long Id){
-
         try{
             userRepository.deleteById(Id);
 
@@ -54,6 +63,23 @@ public class UserService implements UserDetailsService {
             logger.error(e.getMessage());
             return false;
         }
+    }
+
+    public boolean notification(){
+        List<User> users = userRepository.findAll();
+
+        List<Permit> permits = new ArrayList<>();
+
+        for(User usr: users) {
+            usr.getSubscriptions().stream().map(cia -> cia.getPermits().stream().map(permit -> permits.add(permit)));
+            try {
+                notificationService.NotifyExpiration(permits, usr);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            };
+        }
+        return false;
     }
 
     @Override

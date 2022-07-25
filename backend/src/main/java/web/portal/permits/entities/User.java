@@ -49,7 +49,11 @@ public class User implements UserDetails {
     @JoinTable(name = "tb_user_subscriptions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subscription_company_id"))
-    private Set<Role> subscriptions = new HashSet<>();
+    private Set<Company> subscriptions = new HashSet<>();
+
+    public Set<Company> getSubscriptions() {
+        return subscriptions;
+    }
 
     public Instant getCreatedAt() {
         return createdAt;
